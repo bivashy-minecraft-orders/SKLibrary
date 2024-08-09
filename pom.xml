@@ -26,6 +26,8 @@
         <jsoup.version>1.14.3</jsoup.version>
         <jetbrains.annotations.version>22.0.0</jetbrains.annotations.version>
         <lombok.version>1.18.34</lombok.version>
+        <adventure-bukkit.version>4.3.4</adventure-bukkit.version>
+        <minimessage.version>4.17.0</minimessage.version>
 
         <!-- Maven plugins -->
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
@@ -77,6 +79,20 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- Bukkit adventure platform support -->
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-platform-bukkit</artifactId>
+            <version>${adventure-bukkit.version}</version>
+        </dependency>
+
+        <!-- MiniMessage -->
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-minimessage</artifactId>
+            <version>${minimessage.version}</version>
         </dependency>
     </dependencies>
     
@@ -169,6 +185,14 @@
                         <relocation>
                             <pattern>org.jetbrains.annotations</pattern>
                             <shadedPattern>ru.soknight.lib.external.jetbrains.annotations</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>net.kyori.adventure</pattern>
+                            <shadedPattern>ru.soknight.lib.external.net.kyori.adventure</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>net.kyori.examination</pattern>
+                            <shadedPattern>ru.soknight.lib.external.net.kyori.examination</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

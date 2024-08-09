@@ -1,6 +1,9 @@
 package ru.soknight.lib.configuration;
 
+import net.kyori.adventure.platform.bukkit.BukkitComponentSerializer;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -8,6 +11,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.soknight.lib.plugin.SKLibraryPlugin;
 import ru.soknight.lib.tool.Validate;
 
 import java.io.File;
@@ -19,6 +23,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -375,7 +380,11 @@ public abstract class AbstractConfiguration {
 	 * @return new colored string instance
 	 */
 	public static String colorize(String source) {
-	    return ChatColor.translateAlternateColorCodes('&', source);
+		if (source.contains("&")) {
+			SKLibraryPlugin.getPlugin(SKLibraryPlugin.class).getLogger().log(Level.SEVERE, "Legacy color formatting is deprecated! Please consider using MiniMessage format: https://docs.advntr.dev/minimessage/format.html.");
+			return ChatColor.translateAlternateColorCodes('&', source);
+		}
+	    return BukkitComponentSerializer.legacy().serialize(MiniMessage.miniMessage().deserialize(source));
 	}
 	
 	/**
